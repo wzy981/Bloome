@@ -108,8 +108,8 @@ export const BASE_FOOD_DB: FoodItem[] = [
       { label: '低发漫', weight: '不限量', light: TrafficLight.GREEN }
     ]
   },
-  { 
-    id: 'veg-11', nameZh: '大蒜', nameEn: 'Garlic', category: FoodCategory.VEGETABLES, 
+  {
+    id: 'veg-11', nameZh: '大蒜', nameEn: 'Garlic', category: FoodCategory.VEGETABLES,
     baseLight: TrafficLight.RED, personalizedLight: TrafficLight.RED,
     imageUrl: 'https://images.unsplash.com/photo-1540148426945-6cf22a6b2383?w=200&h=200&fit=crop',
     reason: '触发因子：高含量果聚糖。极易引发腹胀。',
@@ -118,10 +118,55 @@ export const BASE_FOOD_DB: FoodItem[] = [
       { label: '高发漫', weight: '>10g', light: TrafficLight.RED }
     ]
   },
+  {
+    id: 'veg-12', nameZh: '青椒', nameEn: 'Bell Pepper', category: FoodCategory.VEGETABLES,
+    baseLight: TrafficLight.GREEN, personalizedLight: TrafficLight.GREEN,
+    imageUrl: 'https://images.unsplash.com/photo-1563565375-f3fdfdbefa83?w=200&h=200&fit=crop',
+    reason: '低发漫蔬菜，富含维生素C。各种颜色的甜椒均可。',
+    portions: [
+      { label: '正常', weight: '不限量', light: TrafficLight.GREEN }
+    ]
+  },
+  {
+    id: 'veg-13', nameZh: '生菜', nameEn: 'Lettuce', category: FoodCategory.VEGETABLES,
+    baseLight: TrafficLight.GREEN, personalizedLight: TrafficLight.GREEN,
+    imageUrl: 'https://images.unsplash.com/photo-1622206151226-18ca2c9ab4a1?w=200&h=200&fit=crop',
+    reason: '无已知发漫触发，适合做沙拉。',
+    portions: [
+      { label: '正常', weight: '不限量', light: TrafficLight.GREEN }
+    ]
+  },
+  {
+    id: 'veg-14', nameZh: '西葫芦', nameEn: 'Zucchini', category: FoodCategory.VEGETABLES,
+    baseLight: TrafficLight.GREEN, personalizedLight: TrafficLight.GREEN,
+    imageUrl: 'https://images.unsplash.com/photo-1597362925123-77861d3fbac7?w=200&h=200&fit=crop',
+    reason: '低发漫蔬菜，适合炒食或烤制。',
+    portions: [
+      { label: '正常', weight: '不限量', light: TrafficLight.GREEN }
+    ]
+  },
+  {
+    id: 'veg-15', nameZh: '小白菜', nameEn: 'Bok Choy', category: FoodCategory.VEGETABLES,
+    baseLight: TrafficLight.GREEN, personalizedLight: TrafficLight.GREEN,
+    imageUrl: 'https://images.unsplash.com/photo-1598030085799-34fe8e41bb8c?w=200&h=200&fit=crop',
+    reason: '低发漫蔬菜，富含钙和维生素K。',
+    portions: [
+      { label: '正常', weight: '不限量', light: TrafficLight.GREEN }
+    ]
+  },
+  {
+    id: 'veg-16', nameZh: '四季豆', nameEn: 'Green Beans', category: FoodCategory.VEGETABLES,
+    baseLight: TrafficLight.GREEN, personalizedLight: TrafficLight.GREEN,
+    imageUrl: 'https://images.unsplash.com/photo-1568584711271-e25f7b4ccd35?w=200&h=200&fit=crop',
+    reason: '低发漫蔬菜，富含膳食纤维。',
+    portions: [
+      { label: '正常', weight: '不限量', light: TrafficLight.GREEN }
+    ]
+  },
 
   // --- 水果 (Fruits) ---
-  { 
-    id: 'fruit-1', nameZh: '苹果', nameEn: 'Apple', category: FoodCategory.FRUITS, 
+  {
+    id: 'fruit-1', nameZh: '苹果', nameEn: 'Apple', category: FoodCategory.FRUITS,
     baseLight: TrafficLight.RED, personalizedLight: TrafficLight.RED,
     imageUrl: 'https://images.unsplash.com/photo-1560806887-1e4cd0b6bcd6?w=200&h=200&fit=crop',
     reason: '触发因子：果糖和果聚糖。',
@@ -131,13 +176,58 @@ export const BASE_FOOD_DB: FoodItem[] = [
       { label: '正常', weight: '150g', light: TrafficLight.RED }
     ]
   },
-  { 
-    id: 'fruit-2', nameZh: '香蕉', nameEn: 'Banana', category: FoodCategory.FRUITS, 
+  {
+    id: 'fruit-2', nameZh: '香蕉', nameEn: 'Banana', category: FoodCategory.FRUITS,
     baseLight: TrafficLight.GREEN, personalizedLight: TrafficLight.GREEN,
     imageUrl: 'https://images.unsplash.com/photo-1571771894821-ad996211fdf4?w=200&h=200&fit=crop',
     reason: '熟透的香蕉含果聚糖较高，建议吃略生的（Green Banana）。',
     portions: [
       { label: '正常', weight: '100g', light: TrafficLight.GREEN }
+    ]
+  },
+  {
+    id: 'fruit-3', nameZh: '草莓', nameEn: 'Strawberries', category: FoodCategory.FRUITS,
+    baseLight: TrafficLight.GREEN, personalizedLight: TrafficLight.GREEN,
+    imageUrl: 'https://images.unsplash.com/photo-1464965911861-746a04b4bca6?w=200&h=200&fit=crop',
+    reason: '低发漫水果，富含维生素C和抗氧化剂。',
+    portions: [
+      { label: '正常', weight: '不限量', light: TrafficLight.GREEN }
+    ]
+  },
+  {
+    id: 'fruit-4', nameZh: '蓝莓', nameEn: 'Blueberries', category: FoodCategory.FRUITS,
+    baseLight: TrafficLight.GREEN, personalizedLight: TrafficLight.GREEN,
+    imageUrl: 'https://images.unsplash.com/photo-1498557850523-fd3d118b962e?w=200&h=200&fit=crop',
+    reason: '低发漫水果，富含花青素。',
+    portions: [
+      { label: '正常', weight: '不限量', light: TrafficLight.GREEN }
+    ]
+  },
+  {
+    id: 'fruit-5', nameZh: '橙子', nameEn: 'Orange', category: FoodCategory.FRUITS,
+    baseLight: TrafficLight.GREEN, personalizedLight: TrafficLight.GREEN,
+    imageUrl: 'https://images.unsplash.com/photo-1580052614034-c55d20bfee3b?w=200&h=200&fit=crop',
+    reason: '低发漫水果，富含维生素C。建议选择较小的橙子。',
+    portions: [
+      { label: '1个', weight: '130g', light: TrafficLight.GREEN }
+    ]
+  },
+  {
+    id: 'fruit-6', nameZh: '葡萄', nameEn: 'Grapes', category: FoodCategory.FRUITS,
+    baseLight: TrafficLight.GREEN, personalizedLight: TrafficLight.GREEN,
+    imageUrl: 'https://images.unsplash.com/photo-1599819177032-c7e2b8b6fcf0?w=200&h=200&fit=crop',
+    reason: '低发漫水果，适量食用安全。',
+    portions: [
+      { label: '正常', weight: '150g', light: TrafficLight.GREEN }
+    ]
+  },
+  {
+    id: 'fruit-7', nameZh: '奇异果', nameEn: 'Kiwi', category: FoodCategory.FRUITS,
+    baseLight: TrafficLight.GREEN, personalizedLight: TrafficLight.GREEN,
+    imageUrl: 'https://images.unsplash.com/photo-1585059895524-72359e06133a?w=200&h=200&fit=crop',
+    reason: '低发漫水果，富含维生素C和膳食纤维。',
+    portions: [
+      { label: '2个', weight: '140g', light: TrafficLight.GREEN }
     ]
   },
 
@@ -197,6 +287,53 @@ export const BASE_FOOD_DB: FoodItem[] = [
     portions: [
       { label: '正常', weight: '30g', light: TrafficLight.GREEN },
       { label: '过量', weight: '80g', light: TrafficLight.YELLOW }
+    ]
+  },
+
+  // --- 肉、鱼、蛋及油脂 (Meat, Fish, Eggs & Oils) ---
+  {
+    id: 'protein-1', nameZh: '鸡胸肉', nameEn: 'Chicken Breast', category: FoodCategory.MEAT_FISH_EGGS_OILS,
+    baseLight: TrafficLight.GREEN, personalizedLight: TrafficLight.GREEN,
+    imageUrl: 'https://images.unsplash.com/photo-1604503468506-a8da13d82791?w=200&h=200&fit=crop',
+    reason: '纯蛋白质，无已知发漫触发。是IBS患者的优质蛋白来源。',
+    portions: [
+      { label: '正常', weight: '不限量', light: TrafficLight.GREEN }
+    ]
+  },
+  {
+    id: 'protein-2', nameZh: '三文鱼', nameEn: 'Salmon', category: FoodCategory.MEAT_FISH_EGGS_OILS,
+    baseLight: TrafficLight.GREEN, personalizedLight: TrafficLight.GREEN,
+    imageUrl: 'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=200&h=200&fit=crop',
+    reason: '富含Omega-3脂肪酸，无已知发漫触发。',
+    portions: [
+      { label: '正常', weight: '不限量', light: TrafficLight.GREEN }
+    ]
+  },
+  {
+    id: 'protein-3', nameZh: '鸡蛋', nameEn: 'Eggs', category: FoodCategory.MEAT_FISH_EGGS_OILS,
+    baseLight: TrafficLight.GREEN, personalizedLight: TrafficLight.GREEN,
+    imageUrl: 'https://images.unsplash.com/photo-1582722872445-44dc5f7e3c8f?w=200&h=200&fit=crop',
+    reason: '纯蛋白质和脂肪，无已知发漫触发。',
+    portions: [
+      { label: '正常', weight: '不限量', light: TrafficLight.GREEN }
+    ]
+  },
+  {
+    id: 'protein-4', nameZh: '橄榄油', nameEn: 'Olive Oil', category: FoodCategory.MEAT_FISH_EGGS_OILS,
+    baseLight: TrafficLight.GREEN, personalizedLight: TrafficLight.GREEN,
+    imageUrl: 'https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=200&h=200&fit=crop',
+    reason: '纯脂肪，无已知发漫触发。建议选择特级初榨橄榄油。',
+    portions: [
+      { label: '正常', weight: '不限量', light: TrafficLight.GREEN }
+    ]
+  },
+  {
+    id: 'protein-5', nameZh: '猪肉', nameEn: 'Pork', category: FoodCategory.MEAT_FISH_EGGS_OILS,
+    baseLight: TrafficLight.GREEN, personalizedLight: TrafficLight.GREEN,
+    imageUrl: 'https://images.unsplash.com/photo-1602470520998-f4a52199a3d6?w=200&h=200&fit=crop',
+    reason: '纯蛋白质，无已知发漫触发。选择瘦肉部分更佳。',
+    portions: [
+      { label: '正常', weight: '不限量', light: TrafficLight.GREEN }
     ]
   }
 ];
