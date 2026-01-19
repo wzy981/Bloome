@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bloome FODMAP Food Database Preview</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: white;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2.5rem;
+        }
+        .subtitle {
+            color: rgba(255,255,255,0.9);
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+        .stats {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        .stat-card {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            padding: 15px 25px;
+            border-radius: 12px;
+            color: white;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            display: block;
+        }
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        .filters {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .filter-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 2px solid transparent;
+        }
+        .filter-btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+        }
+        .filter-btn.active {
+            border-color: white;
+            background: rgba(255,255,255,0.3);
+        }
+        .category-section {
+            margin-bottom: 30px;
+        }
+        .category-title {
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            padding-left: 10px;
+            border-left: 4px solid white;
+        }
+        .food-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        .food-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+        }
+        .food-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+        .food-card.new::before {
+            content: 'NEW';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #ff6b6b;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            z-index: 10;
+            box-shadow: 0 2px 10px rgba(255,107,107,0.5);
+        }
+        .food-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .food-content {
+            padding: 15px;
+        }
+        .food-name {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        .food-name-en {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        .traffic-light {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        .light-green {
+            background: #51cf66;
+            color: white;
+        }
+        .light-yellow {
+            background: #ffd43b;
+            color: #333;
+        }
+        .light-red {
+            background: #ff6b6b;
+            color: white;
+        }
+        .food-reason {
+            font-size: 0.9rem;
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 10px;
+        }
+        .portions {
+            font-size: 0.85rem;
+            color: #888;
+        }
+        .badge {
+            display: inline-block;
+            background: #e9ecef;
+            padding: 3px 10px;
+            border-radius: 10px;
+            font-size: 0.75rem;
+            margin: 2px;
+            color: #495057;
+        }
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+            .food-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌿 Bloome FODMAP Database</h1>
+        <p class="subtitle">Personalized IBS & Gut Health Food Guide</p>
+
+        <div class="stats">
+            <div class="stat-card">
+                <span class="stat-number">29</span>
+                <span class="stat-label">Total Foods</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">15</span>
+                <span class="stat-label">Newly Added</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">7</span>
+                <span class="stat-label">Categories</span>
+            </div>
+        </div>
+
+        <div class="filters">
+            <button class="filter-btn active" onclick="filterByLight('all')">All Foods</button>
+            <button class="filter-btn" onclick="filterByLight('green')">🟢 Safe Foods</button>
+            <button class="filter-btn" onclick="filterByLight('yellow')">🟡 Moderate</button>
+            <button class="filter-btn" onclick="filterByLight('red')">🔴 Avoid</button>
+        </div>
+
+        <!-- Vegetables -->
+        <div class="category-section">
+            <h2 class="category-title">🥬 蔬菜 Vegetables</h2>
+            <div class="food-grid">
+                <div class="food-card" data-light="green">
+                    <img src="https://images.unsplash.com/photo-1459411621453-7b03977f4bfc?w=400&h=300&fit=crop" class="food-image" alt="Broccoli">
+                    <div class="food-content">
+                        <div class="food-name">西蓝花</div>
+                        <div class="food-name-en">Broccoli</div>
+                        <span class="traffic-light light-red">🔴 RED</span>
+                        <div class="food-reason">触发因子：果聚糖。注意：安全剂量仅限花朵部分。</div>
+                        <div class="portions">
+                            <span class="badge">🟢 75g (花)</span>
+                            <span class="badge">🟡 100g</span>
+                            <span class="badge">🔴 >150g</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="food-card new" data-light="green">
+                    <img src="https://images.unsplash.com/photo-1563565375-f3fdfdbefa83?w=400&h=300&fit=crop" class="food-image" alt="Bell Pepper">
+                    <div class="food-content">
+                        <div class="food-name">青椒</div>
+                        <div class="food-name-en">Bell Pepper</div>
+                        <span class="traffic-light light-green">🟢 GREEN</span>
+                        <div class="food-reason">低发漫蔬菜，富含维生素C。各种颜色的甜椒均可。</div>
+                        <div class="portions">
+                            <span class="badge">🟢 不限量</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="food-card new" data-light="green">
+                    <img src="https://images.unsplash.com/photo-1622206151226-18ca2c9ab4a1?w=400&h=300&fit=crop" class="food-image" alt="Lettuce">
+                    <div class="food-content">
+                        <div class="food-name">生菜</div>
+                        <div class="food-name-en">Lettuce</div>
+                        <span class="traffic-light light-green">🟢 GREEN</span>
+                        <div class="food-reason">无已知发漫触发，适合做沙拉。</div>
+                        <div class="portions">
+                            <span class="badge">🟢 不限量</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="food-card new" data-light="green">
+                    <img src="https://images.unsplash.com/photo-1597362925123-77861d3fbac7?w=400&h=300&fit=crop" class="food-image" alt="Zucchini">
+                    <div class="food-content">
+                        <div class="food-name">西葫芦</div>
+                        <div class="food-name-en">Zucchini</div>
+                        <span class="traffic-light light-green">🟢 GREEN</span>
+                        <div class="food-reason">低发漫蔬菜，适合炒食或烤制。</div>
+                        <div class="portions">
+                            <span class="badge">🟢 不限量</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="food-card new" data-light="green">
+                    <img src="https://images.unsplash.com/photo-1598030085799-34fe8e41bb8c?w=400&h=300&fit=crop" class="food-image" alt="Bok Choy">
+                    <div class="food-content">
+                        <div class="food-name">小白菜</div>
+                        <div class="food-name-en">Bok Choy</div>
+                        <span class="traffic-light light-green">🟢 GREEN</span>
+                        <div class="food-reason">低发漫蔬菜，富含钙和维生素K。</div>
+                        <div class="portions">
+                            <span class="badge">🟢 不限量</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="food-card new" data-light="green">
+                    <img src="https://images.unsplash.com/photo-1568584711271-e25f7b4ccd35?w=400&h=300&fit=crop" class="food-image" alt="Green Beans">
+                    <div class="food-content">
+                        <div class="food-name">四季豆</div>
+                        <div class="food-name-en">Green Beans</div>
+                        <span class="traffic-light light-green">🟢 GREEN</span>
+                        <div class="food-reason">低发漫蔬菜，富含膳食纤维。</div>
+                        <div class="portions">
+                            <span class="badge">🟢 不限量</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Fruits -->
+        <div class="category-section">
+            <h2 class="category-title">🍓 水果 Fruits</h2>
+            <div class="food-grid">
+                <div class="food-card new" data-light="green">
+                    <img src="https://images.unsplash.com/photo-1464965911861-746a04b4bca6?w=400&h=300&fit=crop" class="food-image" alt="Strawberries">
+                    <div class="food-content">
+                        <div class="food-name">草莓</div>
+                        <div class="food-name-en">Strawberries</div>
+                        <span class="traffic-light light-green">🟢 GREEN</span>
+                        <div class="food-reason">低发漫水果，富含维生素C和抗氧化剂。</div>
+                        <div class="portions">
+                            <span class="badge">🟢 不限量</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="food-card new" data-light="green">
+                    <img src="https://images.unsplash.com/photo-1498557850523-fd3d118b962e?w=400&h=300&fit=crop" class="food-image" alt="Blueberries">
+                    <div class="food-content">
+                        <div class="food-name">蓝莓</div>
+                        <div class="food-name-en">Blueberries</div>
+                        <span class="traffic-light light-green">🟢 GREEN</span>
+                        <div class="food-reason">低发漫水果，富含花青素。</div>
+                        <div class="portions">
+                            <span class="badge">🟢 不限量</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="food-card new" data-light="green">
+                    <img src="https://images.unsplash.com/photo-1580052614034-c55d20bfee3b?w=400&h=300&fit=crop" class="food-image" alt="Orange">
+                    <div class="food-content">
+                        <div class="food-name">橙子</div>
+                        <div class="food-name-en">Orange</div>
+                        <span class="traffic-light light-green">🟢 GREEN</span>
+                        <div class="food-reason">低发漫水果，富含维生素C。建议选择较小的橙子。</div>
+                        <div class="portions">
+                            <span class="badge">🟢 1个 (130g)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="food-card new" data-light="green">
+                    <img src="https://images.unsplash.com/photo-1599819177032-c7e2b8b6fcf0?w=400&h=300&fit=crop" class="food-image" alt="Grapes">
+                    <div class="food-content">
+                        <div class="food-name">葡萄</div>
+                        <div class="food-name-en">Grapes</div>
+                        <span class="traffic-light light-green">🟢 GREEN</span>
+                        <div class="food-reason">低发漫水果，适量食用安全。</div>
+                        <div class="portions">
+                            <span class="badge">🟢 150g</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="food-card new" data-light="green">
+                    <img src="https://images.unsplash.com/photo-1585059895524-72359e06133a?w=400&h=300&fit=crop" class="food-image" alt="Kiwi">
+                    <div class="food-content">
+                        <div class="food-name">奇异果</div>
+                        <div class="food-name-en">Kiwi</div>
+                        <span class="traffic-light light-green">🟢 GREEN</span>
+                        <div class="food-reason">低发漫水果，富含维生素C和膳食纤维。</div>
+                        <div class="portions">
+                            <span class="badge">🟢 2个 (140g)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="food-card" data-light="green">
+                    <img src="https://images.unsplash.com/photo-1571771894821-ad996211fdf4?w=400&h=300&fit=crop" class="food-image" alt="Banana">
+                    <div class="food-content">
+                        <div class="food-name">香蕉</div>
+                        <div class="food-name-en">Banana</div>
+                        <span class="traffic-light light-green">🟢 GREEN</span>
+                        <div class="food-reason">熟透的香蕉含果聚糖较高，建议吃略生的（Green Banana）。</div>
+                        <div class="portions">
+                            <span class="badge">🟢 100g</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Proteins -->
+        <div class="category-section">
+            <h2 class="category-title">🍗 肉、鱼、蛋及油脂 Proteins & Oils</h2>
+            <div class="food-grid">
+                <div class="food-card new" data-light="green">
+                    <img src="https://images.unsplash.com/photo-1604503468506-a8da13d82791?w=400&h=300&fit=crop" class="food-image" alt="Chicken">
+                    <div class="food-content">
+                        <div class="food-name">鸡胸肉</div>
+                        <div class="food-name-en">Chicken Breast</div>
+                        <span class="traffic-light light-green">🟢 GREEN</span>
+                        <div class="food-reason">纯蛋白质，无已知发漫触发。是IBS患者的优质蛋白来源。</div>
+                        <div class="portions">
+                            <span class="badge">🟢 不限量</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="food-card new" data-light="green">
+                    <img src="https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=400&h=300&fit=crop" class="food-image" alt="Salmon">
+                    <div class="food-content">
+                        <div class="food-name">三文鱼</div>
+                        <div class="food-name-en">Salmon</div>
+                        <span class="traffic-light light-green">🟢 GREEN</span>
+                        <div class="food-reason">富含Omega-3脂肪酸，无已知发漫触发。</div>
+                        <div class="portions">
+                            <span class="badge">🟢 不限量</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="food-card new" data-light="green">
+                    <img src="https://images.unsplash.com/photo-1582722872445-44dc5f7e3c8f?w=400&h=300&fit=crop" class="food-image" alt="Eggs">
+                    <div class="food-content">
+                        <div class="food-name">鸡蛋</div>
+                        <div class="food-name-en">Eggs</div>
+                        <span class="traffic-light light-green">🟢 GREEN</span>
+                        <div class="food-reason">纯蛋白质和脂肪，无已知发漫触发。</div>
+                        <div class="portions">
+                            <span class="badge">🟢 不限量</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="food-card new" data-light="green">
+                    <img src="https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=400&h=300&fit=crop" class="food-image" alt="Olive Oil">
+                    <div class="food-content">
+                        <div class="food-name">橄榄油</div>
+                        <div class="food-name-en">Olive Oil</div>
+                        <span class="traffic-light light-green">🟢 GREEN</span>
+                        <div class="food-reason">纯脂肪，无已知发漫触发。建议选择特级初榨橄榄油。</div>
+                        <div class="portions">
+                            <span class="badge">🟢 不限量</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="food-card new" data-light="green">
+                    <img src="https://images.unsplash.com/photo-1602470520998-f4a52199a3d6?w=400&h=300&fit=crop" class="food-image" alt="Pork">
+                    <div class="food-content">
+                        <div class="food-name">猪肉</div>
+                        <div class="food-name-en">Pork</div>
+                        <span class="traffic-light light-green">🟢 GREEN</span>
+                        <div class="food-reason">纯蛋白质，无已知发漫触发。选择瘦肉部分更佳。</div>
+                        <div class="portions">
+                            <span class="badge">🟢 不限量</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function filterByLight(color) {
+            const cards = document.querySelectorAll('.food-card');
+            const buttons = document.querySelectorAll('.filter-btn');
+
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            cards.forEach(card => {
+                if (color === 'all') {
+                    card.style.display = 'block';
+                } else {
+                    const lightBadge = card.querySelector('.traffic-light');
+                    if (lightBadge && lightBadge.classList.contains(`light-${color}`)) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>
