@@ -1,0 +1,7 @@
+{
+  "name": "Bloome (焕己)",
+  "description": "A personalized health and diet therapy app focused on IBS, RA, and gut health. Features AI-driven personalized food traffic lights, symptom tracking, and RA joint pain mapping.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
