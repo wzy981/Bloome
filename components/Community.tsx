@@ -1,86 +1,65 @@
 
 import React from 'react';
-import { MessageSquare, Heart, Share2, Languages } from 'lucide-react';
+import { POSTS } from '../constants';
+import { Heart, MessageSquare, Plus, Search } from 'lucide-react';
 
 const Community: React.FC = () => {
-  const posts = [
-    {
-      id: '1',
-      author: '健康旅人',
-      avatar: 'https://picsum.photos/seed/p1/100/100',
-      content: '通过 3 周的低 FODMAP 饮食，我的腹胀症状减轻了 70%！大蒜果然是我的红灯食物。',
-      tags: ['#IBS', '#低FODMAP'],
-      likes: 24,
-      comments: 5
-    },
-    {
-      id: '2',
-      author: 'Sarah RA Warrior',
-      avatar: 'https://picsum.photos/seed/p2/100/100',
-      content: 'Morning stiffness is down from 45 min to 10 min. Removing Nightshades made a huge difference for my RA joints.',
-      tags: ['#RA', '#AntiInflammatory'],
-      likes: 56,
-      comments: 12
-    }
-  ];
-
   return (
-    <div className="space-y-6 pb-4">
-      <header className="flex justify-between items-center">
-        <h2 className="text-xl font-bold text-gray-800">社区交流</h2>
-        <button className="flex items-center gap-1 text-xs font-bold text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full">
-          <Languages size={14} /> 中/英
-        </button>
+    <div className="space-y-4 pb-10">
+      <header className="flex justify-between items-center px-1">
+        <div className="flex gap-4">
+          <button className="text-lg font-bold text-gray-800 border-b-2 border-emerald-500 pb-1">发现</button>
+          <button className="text-lg font-bold text-gray-400 pb-1">关注</button>
+        </div>
+        <button className="p-2 bg-gray-100 rounded-full text-gray-500"><Search size={20}/></button>
       </header>
 
-      <div className="space-y-4">
-        {posts.map(post => (
-          <div key={post.id} className="bg-white p-4 rounded-3xl border border-gray-100 shadow-sm space-y-3">
-            <div className="flex items-center gap-3">
-              <img src={post.avatar} alt={post.author} className="w-10 h-10 rounded-full border-2 border-emerald-100" />
-              <div>
-                <div className="font-bold text-gray-800 text-sm">{post.author}</div>
-                <div className="text-[10px] text-gray-400">2小时前</div>
-              </div>
-            </div>
-            
-            <p className="text-sm text-gray-600 leading-relaxed">{post.content}</p>
-            
-            <div className="flex flex-wrap gap-2">
-              {post.tags.map(tag => (
-                <span key={tag} className="text-[10px] bg-gray-50 text-gray-400 px-2 py-1 rounded-full font-bold">
-                  {tag}
-                </span>
-              ))}
-            </div>
-
-            <div className="flex items-center justify-between pt-2 border-t border-gray-50">
-              <div className="flex gap-4">
-                <button className="flex items-center gap-1 text-xs text-gray-400 hover:text-emerald-500 transition-colors">
-                  <Heart size={16} /> {post.likes}
-                </button>
-                <button className="flex items-center gap-1 text-xs text-gray-400 hover:text-emerald-500 transition-colors">
-                  <MessageSquare size={16} /> {post.comments}
-                </button>
-              </div>
-              <button className="text-gray-400 hover:text-emerald-500">
-                <Share2 size={16} />
-              </button>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      <div className="bg-emerald-600 text-white p-6 rounded-3xl shadow-xl shadow-emerald-200 relative overflow-hidden">
-        <div className="relative z-10">
-          <h3 className="font-bold text-lg mb-1">加入互助计划</h3>
-          <p className="text-emerald-100 text-xs mb-4">分享您的疗愈经验，赢取 AI 营养师 1对1 咨询额度。</p>
-          <button className="bg-white text-emerald-600 px-4 py-2 rounded-xl text-xs font-bold shadow-lg">立即发布案例</button>
+      {/* Waterfall Feed */}
+      <div className="grid grid-cols-2 gap-3">
+        <div className="space-y-3">
+          {POSTS.filter((_, i) => i % 2 === 0).map(post => (
+            <PostCard key={post.id} post={post} />
+          ))}
         </div>
-        <div className="absolute -right-4 -bottom-4 w-24 h-24 bg-emerald-500 rounded-full opacity-50 blur-2xl"></div>
+        <div className="space-y-3">
+          {POSTS.filter((_, i) => i % 2 !== 0).map(post => (
+            <PostCard key={post.id} post={post} />
+          ))}
+        </div>
       </div>
+
+      {/* Floating Add Button */}
+      <button className="fixed bottom-24 right-6 w-14 h-14 bg-emerald-600 text-white rounded-full shadow-2xl flex items-center justify-center z-50 transform hover:scale-110 transition-transform active:scale-95">
+        <Plus size={32} />
+      </button>
     </div>
   );
 };
+
+const PostCard: React.FC<{ post: any }> = ({ post }) => (
+  <div className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 transition-all hover:shadow-md">
+    <div className="relative">
+      <img src={post.imageUrl} alt={post.title} className="w-full object-cover" />
+      <div className="absolute top-2 left-2 flex flex-wrap gap-1">
+        {post.tags.slice(0, 1).map(t => (
+          <span key={t} className="px-1.5 py-0.5 bg-black/20 backdrop-blur-md rounded text-[8px] font-bold text-white uppercase">{t}</span>
+        ))}
+      </div>
+    </div>
+    <div className="p-3 space-y-2">
+      <h3 className="text-xs font-bold text-gray-800 line-clamp-2 leading-snug">{post.title}</h3>
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-1.5">
+          <img src={post.authorAvatar} alt={post.author} className="w-5 h-5 rounded-full border border-gray-100" />
+          <span className="text-[10px] text-gray-500 font-medium truncate max-w-[60px]">{post.author}</span>
+        </div>
+        <div className="flex items-center gap-1 text-gray-400">
+          <Heart size={12} className={post.likes > 1000 ? 'text-red-500 fill-red-500' : ''} />
+          <span className="text-[10px] font-bold">{post.likes > 1000 ? (post.likes/1000).toFixed(1) + 'k' : post.likes}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+);
 
 export default Community;

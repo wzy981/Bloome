@@ -9,7 +9,7 @@ export enum FoodCategory {
   VEGETABLES = '蔬菜',
   FRUITS = '水果',
   DAIRY_SOY_LACTOSE_FREE = '乳制品及替代品',
-  PULSES_TOFU_NUTS = '豆类、豆腐及坚果',
+  PULSES_TOFU_NUTS = '豆类、豆腐及坚理',
   BEVERAGES = '饮料',
   MEAT_FISH_EGGS_OILS = '肉、鱼、蛋及油脂',
   CONDIMENTS = '调味品',
@@ -42,9 +42,9 @@ export interface SymptomLog {
   id: string;
   timestamp: number;
   symptoms: string[];
-  severity: number; // 1-10
-  stressLevel: number; // 1-10
-  jointPainAreas?: string[]; // For RA tracking
+  severity: number;
+  stressLevel: number;
+  jointPainAreas?: string[]; 
 }
 
 export interface FoodLog {
@@ -54,8 +54,46 @@ export interface FoodLog {
   amount: string;
 }
 
-export interface AIInsight {
-  triggerFoods: string[];
-  safeFoods: string[];
-  recommendation: string;
+export interface StoolLog {
+  id: string;
+  timestamp: number;
+  type: number;
+  amount: '少量' | '中量' | '大量';
+  color: string;
+  feeling: string;
+}
+
+export interface AssessmentResult {
+  dysbiosisScore: number;
+  digestionScore: number;
+  leakyGutScore: number;
+  timestamp: number;
+}
+
+export interface Recipe {
+  id: string;
+  title: string;
+  phase: 'REMOVE' | 'REPLACE' | 'REINOCULATE' | 'REPAIR';
+  tags: string[];
+  imageUrl: string;
+  calories: number;
+  time: string;
+  ingredients: string[];
+  instructions: string[];
+}
+
+export interface Post {
+  id: string;
+  author: string;
+  authorAvatar: string;
+  title: string;
+  content: string;
+  imageUrl: string;
+  likes: number;
+  tags: string[];
+}
+
+export interface ChatMessage {
+  role: 'user' | 'model';
+  text: string;
 }
